@@ -5,6 +5,7 @@ let deck = $('.deck');
 let counter = 0;
 let foundCardsPair = 0;
 const playAgain = $(".reset");
+const restart = $(".restart");
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -96,5 +97,9 @@ function findWinner() {
 };
 
 playAgain.on("click", function() {
+  location.reload()
+});
+
+restart.on("click", function() {
   location.reload()
 });
