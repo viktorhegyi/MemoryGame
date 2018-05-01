@@ -52,7 +52,7 @@ function emptyOpenCards() {
 };
 
 function removeClass() {
-  $(".card").removeClass("show open");
+  $(".card").removeClass("show open flipInY bounceIn shake wrong");
   emptyOpenCards();
 };
 
@@ -65,8 +65,8 @@ function findMatch() {
 
     if (openCards.length === 2) {
       if(openCards[0][0].classList[2] === openCards[1][0].classList[2]) {
-        openCards[0][0].classList.add("match");
-        openCards[1][0].classList.add("match");
+        openCards[0][0].classList.add("match", "bounceIn");
+        openCards[1][0].classList.add("match", "bounceIn");
         $(openCards[0]).off('click');
         $(openCards[1]).off('click');
         emptyOpenCards();
@@ -74,6 +74,9 @@ function findMatch() {
         foundCardsPair++;
         findWinner();
       } else {
+        openCards[0][0].classList.add("shake", "wrong");
+        openCards[1][0].classList.add("shake", "wrong");
+        emptyOpenCards();
         setTimeout(removeClass, 500);
         counter++;
       }
