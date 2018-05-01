@@ -2,6 +2,9 @@ let cards = ["diamond", "plane", "anchor", "bolt", "cube", "leaf", "bicycle", "b
             "diamond", "plane", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
 let openCards = [];
 let deck = $('.deck');
+let counter = 0;
+let foundCardsPair = 0;
+const playAgain = $(".reset");
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -68,6 +71,8 @@ function findMatch() {
         $(openCards[1]).off('click');
         emptyOpenCards();
         counter++;
+        foundCardsPair++;
+        findWinner();
       } else {
         setTimeout(removeClass, 500);
         counter++;
@@ -80,3 +85,13 @@ function findMatch() {
 function moveCounter() {
   $(".moves").text(counter.toString());
 };
+
+function findWinner() {
+  if (foundCardsPair === 8) {
+    $(".modal").css("display", "block");
+  };
+};
+
+playAgain.on("click", function() {
+  location.reload()
+});
