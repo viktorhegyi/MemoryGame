@@ -67,9 +67,16 @@ function findMatch() {
         $(openCards[0]).off('click');
         $(openCards[1]).off('click');
         emptyOpenCards();
+        counter++;
       } else {
         setTimeout(removeClass, 500);
+        counter++;
       }
     }
+  moveCounter();
   });
+};
+
+function moveCounter() {
+  $(".moves").text(counter.toString());
 };
