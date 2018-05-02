@@ -27,11 +27,15 @@ function shuffle(array) {
     return array;
 };
 
+//create the html for card
+
 function buildDeck() {
   for (var i = 0; i < cards.length; i++) {
     deck.append('<li><i class="card fa fa-' + cards[i] + '"></i></li>');
   }
 };
+
+//start the game logic
 
 startGame();
 
@@ -41,7 +45,7 @@ function startGame() {
   findMatch();
 }
 
-  //functions to use
+//functions to use
 
 function showCard(card) {
   $(card).toggleClass("open show");
@@ -62,9 +66,11 @@ function removeClass() {
   emptyOpenCards();
 };
 
+// the logic for finding if two cards match
+
 function findMatch() {
   $(".card").on("click", function() {
-    if (!startTimer) {
+    if (!startTimer) { // check if the timer started and start the game clock
       startTimer = true;
       startTime = new Date();
       startGameClock();
@@ -74,7 +80,7 @@ function findMatch() {
     };
     showCard(this);
 
-    if (openCards.length === 2) {
+    if (openCards.length === 2) { // check if two cards turned and check if they match
       if(openCards[0][0].classList[2] === openCards[1][0].classList[2]) {
         openCards[0][0].classList.add("match", "bounceIn");
         openCards[1][0].classList.add("match", "bounceIn");
@@ -97,9 +103,13 @@ function findMatch() {
   });
 };
 
+// change the html for counting the Moves
+
 function moveCounter() {
   $(".moves").text(counter.toString());
 };
+
+// check if all cards found pair and show the modal for winners
 
 function findWinner() {
   if (foundCardsPair === 8) {
@@ -110,6 +120,8 @@ function findWinner() {
   };
 };
 
+// reset the game for reset button and play agan button
+
 playAgain.on("click", function() {
   location.reload()
 });
@@ -117,6 +129,8 @@ playAgain.on("click", function() {
 restart.on("click", function() {
   location.reload()
 });
+
+// the logic for the time spent in the game
 
 function timeSpent() {
   let date = new Date();
@@ -126,17 +140,23 @@ function timeSpent() {
   return duration;
 };
 
+// show the timer in html
+
 function timer() {
   if (!winner) {
     $(".timer").text("Timer: " + timeSpent() + " seconds");
   }
 };
 
+// make the clock running real time
+
 function startGameClock() {
   if (startTimer) {
     setInterval(timer, 1000);
   };
 };
+
+// change the rating stars
 
 function rating() {
   if (counter >= 12) {
