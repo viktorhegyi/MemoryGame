@@ -6,6 +6,11 @@ let counter = 0;
 let foundCardsPair = 0;
 const playAgain = $(".reset");
 const restart = $(".restart");
+let winner = false;
+let startTimer = false;
+let startTime = 0;
+let finishTime = 0;
+let duration = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -59,9 +64,14 @@ function removeClass() {
 
 function findMatch() {
   $(".card").on("click", function() {
+    if (!startTimer) {
+      startTimer = true;
+      startTime = new Date();
+      startGameClock();
+    };
     if ($(this).hasClass("open") || $(this).hasClass("show")) {
       return true;
-    }
+    };
     showCard(this);
 
     if (openCards.length === 2) {
@@ -83,6 +93,7 @@ function findMatch() {
       }
     }
   moveCounter();
+  rating();
   });
 };
 
@@ -92,7 +103,10 @@ function moveCounter() {
 
 function findWinner() {
   if (foundCardsPair === 8) {
+    winner = true;
     $(".modal").css("display", "block");
+    $(".time").text("You completed the game in: " + duration + " seconds.");
+    $(".ratingMessage").text("Your rating is: " + $(".stars").children().length + " star(s)");
   };
 };
 
@@ -103,3 +117,35 @@ playAgain.on("click", function() {
 restart.on("click", function() {
   location.reload()
 });
+
+function timeSpent() {
+  let date = new Date();
+  finishTime = date.getTime();
+  let startingTime = startTime.getTime();
+  duration = Math.round((finishTime - startingTime) / 1000);
+  return duration;
+};
+
+function timer() {
+  if (!winner) {
+    $(".timer").text("Timer: " + timeSpent() + " seconds");
+  }
+};
+
+function startGameClock() {
+  if (startTimer) {
+    setInterval(timer, 1000);
+  };
+};
+
+function rating() {
+  if (counter >= 12) {
+    $(".firstStar").remove();
+  };
+  if (counter >= 24) {
+    $(".secondStar").remove();
+  };
+  if (counter >= 36) {
+    $(".thirdStar").remove();
+  };
+};
