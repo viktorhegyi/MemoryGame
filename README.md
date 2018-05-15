@@ -6,6 +6,8 @@ This game was made as part of Google Udacity Front-End Web Developer Nanodegree 
 
 Simple memory game. There are 16 cards (8 pairs). The player has to match the pairs, but just two at the time. The player get ratings according how many moves needed to find all the pairs.
 
+The game can be played on https://viktorhegyi.github.io/MemoryGame/
+
 ### Resources
 
 * Jquery
